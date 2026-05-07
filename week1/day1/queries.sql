@@ -21,7 +21,7 @@ JOIN Department d
 ON e.department_id = d.department_id
 WHERE d.name = 'IT';
 
---------------------------------------------------
+
 
 -- STRING MATCHING
 
@@ -50,7 +50,7 @@ SELECT *
 FROM Employee 
 WHERE name LIKE '_o%';
 
---------------------------------------------------
+
 
 -- DATE QUERIES
 
@@ -79,7 +79,7 @@ SELECT *
 FROM Employee 
 WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
 
---------------------------------------------------
+
 
 -- AGGREGATE FUNCTIONS
 
@@ -105,7 +105,7 @@ SELECT department_id, AVG(salary) AS avg_salary
 FROM Employee
 GROUP BY department_id;
 
---------------------------------------------------
+
 
 -- GROUP BY
 
@@ -136,7 +136,7 @@ GROUP BY department_id
 ORDER BY AVG(salary) DESC
 LIMIT 1;
 
---------------------------------------------------
+
 
 -- HAVING
 
@@ -170,7 +170,6 @@ FROM Employee
 GROUP BY department_id
 HAVING MAX(salary) > 75000;
 
---------------------------------------------------
 
 -- ORDER BY
 
@@ -202,7 +201,7 @@ ON d.department_id = e.department_id
 GROUP BY d.name
 ORDER BY SUM(e.salary);
 
---------------------------------------------------
+
 
 -- JOINS
 
