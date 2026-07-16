@@ -1,0 +1,282 @@
+-- 1. Display employee names with department names
+SELECT e.EmployeeName, d.DepartmentName
+FROM Employees e
+INNER JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 2. Display project names with department names
+SELECT p.ProjectName, d.DepartmentName
+FROM Projects p
+INNER JOIN Departments d
+ON p.DepartmentID = d.DepartmentID;
+
+-- 3. Show employees along with project names
+SELECT e.EmployeeName, p.ProjectName
+FROM Employees e
+INNER JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+INNER JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 4. Show employee salary and department location
+SELECT e.EmployeeName, e.Salary, d.Location
+FROM Employees e
+INNER JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 5. Display all employees working on projects
+SELECT e.EmployeeName, p.ProjectName
+FROM Employees e
+INNER JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+INNER JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 6. Show all employees even if they don't belong to any department
+SELECT e.EmployeeName, d.DepartmentName
+FROM Employees e
+LEFT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 7. Show all departments even if no employee works there
+SELECT d.DepartmentName, e.EmployeeName
+FROM Departments d
+LEFT JOIN Employees e
+ON d.DepartmentID = e.DepartmentID;
+
+-- 8. Show all projects and their department names
+SELECT p.ProjectName, d.DepartmentName
+FROM Projects p
+LEFT JOIN Departments d
+ON p.DepartmentID = d.DepartmentID;
+
+-- 9. Show every employee and their assigned projects
+SELECT e.EmployeeName, p.ProjectName
+FROM Employees e
+LEFT JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+LEFT JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 10. Display all employees even if they are not assigned to any project
+SELECT e.EmployeeName, p.ProjectName
+FROM Employees e
+LEFT JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+LEFT JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 11. Show all departments even if there are no employees
+SELECT d.DepartmentName, e.EmployeeName
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 12. Show all projects even if no employee is assigned
+SELECT p.ProjectName, e.EmployeeName
+FROM EmployeeProjects ep
+RIGHT JOIN Projects p
+ON ep.ProjectID = p.ProjectID
+LEFT JOIN Employees e
+ON ep.EmployeeID = e.EmployeeID;
+
+-- 13. Display every department and employees
+SELECT d.DepartmentName, e.EmployeeName
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 14. Show all projects with departments
+SELECT p.ProjectName, d.DepartmentName
+FROM Departments d
+RIGHT JOIN Projects p
+ON d.DepartmentID = p.DepartmentID;
+
+-- 15. Show every project assignment including projects without employees
+SELECT p.ProjectName, e.EmployeeName
+FROM EmployeeProjects ep
+RIGHT JOIN Projects p
+ON ep.ProjectID = p.ProjectID
+LEFT JOIN Employees e
+ON ep.EmployeeID = e.EmployeeID;
+
+-- 16. Show all employees and all departments
+SELECT e.EmployeeName, d.DepartmentName
+FROM Employees e
+FULL JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 17. Show all departments and projects
+SELECT d.DepartmentName, p.ProjectName
+FROM Departments d
+FULL JOIN Projects p
+ON d.DepartmentID = p.DepartmentID;
+
+-- 18. Display all employees and projects
+SELECT e.EmployeeName, p.ProjectName
+FROM Employees e
+FULL JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+FULL JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 19. Show every department whether employees exist or not
+SELECT d.DepartmentName, e.EmployeeName
+FROM Departments d
+FULL JOIN Employees e
+ON d.DepartmentID = e.DepartmentID;
+
+-- 20. Show all departments and projects including unmatched records
+SELECT d.DepartmentName, p.ProjectName
+FROM Departments d
+FULL JOIN Projects p
+ON d.DepartmentID = p.DepartmentID;
+
+
+-- 21. Show employees whose department is IT
+SELECT e.EmployeeName
+FROM Employees e
+INNER JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'IT';
+
+-- 22. Display employees working on projects with budget above 200000
+SELECT e.EmployeeName, p.ProjectName, p.Budget
+FROM Employees e
+INNER JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+INNER JOIN Projects p
+ON ep.ProjectID = p.ProjectID
+WHERE p.Budget > 200000;
+
+-- 23. Show employee names, department names and project names
+SELECT e.EmployeeName, d.DepartmentName, p.ProjectName
+FROM Employees e
+INNER JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+INNER JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+INNER JOIN Projects p
+ON ep.ProjectID = p.ProjectID;
+
+-- 24. Display total employees in each department
+SELECT d.DepartmentName,
+COUNT(e.EmployeeID) AS TotalEmployees
+FROM Departments d
+INNER JOIN Employees e
+ON d.DepartmentID = e.DepartmentID
+GROUP BY d.DepartmentName;
+
+-- 25. Show average salary department-wise
+SELECT d.DepartmentName,
+AVG(e.Salary) AS AverageSalary
+FROM Departments d
+INNER JOIN Employees e
+ON d.DepartmentID = e.DepartmentID
+GROUP BY d.DepartmentName;
+
+-- 26. Find employees without departments
+SELECT e.EmployeeName
+FROM Employees e
+LEFT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentID IS NULL;
+
+-- 27. Find employees without projects
+SELECT e.EmployeeName
+FROM Employees e
+LEFT JOIN EmployeeProjects ep
+ON e.EmployeeID = ep.EmployeeID
+WHERE ep.ProjectID IS NULL;
+
+-- 28. Find departments without employees
+SELECT d.DepartmentName
+FROM Departments d
+LEFT JOIN Employees e
+ON d.DepartmentID = e.DepartmentID
+WHERE e.EmployeeID IS NULL;
+
+-- 29. Find projects without departments
+SELECT p.ProjectName
+FROM Projects p
+LEFT JOIN Departments d
+ON p.DepartmentID = d.DepartmentID
+WHERE d.DepartmentID IS NULL;
+
+-- 30. Show departments with total employees including zero employees
+SELECT d.DepartmentName,
+COUNT(e.EmployeeID) AS TotalEmployees
+FROM Departments d
+LEFT JOIN Employees e
+ON d.DepartmentID = e.DepartmentID
+GROUP BY d.DepartmentName;
+
+-- 31. Find departments having no employees
+SELECT d.DepartmentName
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE e.EmployeeID IS NULL;
+
+-- 32. Find projects without employees
+SELECT p.ProjectName
+FROM EmployeeProjects ep
+RIGHT JOIN Projects p
+ON ep.ProjectID = p.ProjectID
+WHERE ep.EmployeeID IS NULL;
+
+-- 33. Show departments even if no projects exist
+SELECT d.DepartmentName, p.ProjectName
+FROM Projects p
+RIGHT JOIN Departments d
+ON p.DepartmentID = d.DepartmentID;
+
+-- 34. Count employees in every department
+SELECT d.DepartmentName,
+COUNT(e.EmployeeID) AS EmployeeCount
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+GROUP BY d.DepartmentName;
+
+-- 35. List every project whether employees are assigned or not
+SELECT p.ProjectName, e.EmployeeName
+FROM EmployeeProjects ep
+RIGHT JOIN Projects p
+ON ep.ProjectID = p.ProjectID
+LEFT JOIN Employees e
+ON ep.EmployeeID = e.EmployeeID;
+
+-- 36. Display all departments and employees
+SELECT d.DepartmentName, e.EmployeeName
+FROM Departments d
+FULL JOIN Employees e
+ON d.DepartmentID = e.DepartmentID;
+
+-- 37. Show unmatched employees
+SELECT e.EmployeeName
+FROM Employees e
+FULL JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentID IS NULL;
+
+-- 38. Show unmatched departments
+SELECT d.DepartmentName
+FROM Departments d
+FULL JOIN Employees e
+ON d.DepartmentID = e.DepartmentID
+WHERE e.EmployeeID IS NULL;
+
+-- 39. Show all employees and departments with NULL handling
+SELECT
+COALESCE(e.EmployeeName, 'No Employee') AS Employee,
+COALESCE(d.DepartmentName, 'No Department') AS Department
+FROM Employees e
+FULL JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+-- 40. Display departments and projects including unmatched rows
+SELECT d.DepartmentName, p.ProjectName
+FROM Departments d
+FULL JOIN Projects p
+ON d.DepartmentID = p.DepartmentID;
